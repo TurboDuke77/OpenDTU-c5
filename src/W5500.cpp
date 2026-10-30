@@ -4,9 +4,32 @@
  */
 
 #include "W5500.h"
+#include <esp_idf_version.h>
+
+#if ESP_IDF_VERSION_MAJOR >= 5
+// W5500 ist noch nicht auf IDF 5 portiert: Platzhalter ohne Funktion
+W5500::W5500(spi_device_handle_t, gpio_num_t)
+    : eth_handle(nullptr)
+    , eth_netif(nullptr)
+{
+}
+
+W5500::~W5500() { }
+
+std::unique_ptr<W5500> W5500::setup(gpio_num_t, gpio_num_t, gpio_num_t, gpio_num_t, gpio_num_t, gpio_num_t)
+{
+    return nullptr;
+}
+
+String W5500::macAddress() { return String(); }
+bool W5500::connection_check_spi(spi_device_handle_t) { return false; }
+bool W5500::connection_check_interrupt(gpio_num_t) { return false; }
+
+#else
 
 #include <SpiManager.h>
 #include <driver/spi_master.h>
+
 
 // Internal Arduino functions from WiFiGeneric
 void tcpipInit();
@@ -149,3 +172,5 @@ bool W5500::connection_check_interrupt(gpio_num_t pin_int)
     // Interrupt line must be high
     return level == 1;
 }
+
+#endif
