@@ -13,6 +13,10 @@
 #include "esp32c3/rom/rtc.h"
 #elif CONFIG_IDF_TARGET_ESP32S3
 #include "esp32s3/rom/rtc.h"
+#elif CONFIG_IDF_TARGET_ESP32C5
+#include <esp_rom_sys.h>
+using RESET_REASON = soc_reset_reason_t;
+#define rtc_get_reset_reason(cpu) esp_rom_get_reset_reason(cpu)
 #else
 #error Target CONFIG_IDF_TARGET is not supported
 #endif
