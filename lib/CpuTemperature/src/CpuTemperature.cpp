@@ -14,7 +14,7 @@ static const char* TAG = "temperature";
 extern "C" {
 uint8_t temprature_sens_read();
 }
-#elif defined(CONFIG_IDF_TARGET_ESP32C3) || defined(CONFIG_IDF_TARGET_ESP32S2) || defined(CONFIG_IDF_TARGET_ESP32S3)
+#elif defined(CONFIG_IDF_TARGET_ESP32C3) || defined(CONFIG_IDF_TARGET_ESP32C5) || defined(CONFIG_IDF_TARGET_ESP32S2) || defined(CONFIG_IDF_TARGET_ESP32S3)
 #if (ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 0, 0))
 #include "driver/temp_sensor.h"
 #else
